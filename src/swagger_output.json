@@ -1,0 +1,1133 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Conecta IMEC API Documentation",
+    "description": "Documentação automática gerada pelo Swagger para a API do Conecta IMEC",
+    "version": "1.9.36"
+  },
+  "host": "localhost:3004",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Endpoints relacionados à autenticação e autorização"
+    },
+    {
+      "name": "Users",
+      "description": "Endpoints relacionados aos usuários"
+    },
+    {
+      "name": "Questionnaires",
+      "description": "Endpoints relacionados aos questionários"
+    },
+    {
+      "name": "Questions",
+      "description": "Endpoints relacionados às questões"
+    },
+    {
+      "name": "Submissions",
+      "description": "Endpoints relacionados aos envios (respostas)"
+    },
+    {
+      "name": "Health",
+      "description": "Verificação de saúde da API"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "Insira o token JWT no cabeçalho da requisição (ex: 'Bearer {token}')"
+    }
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Verifica a saúde da aplicação",
+        "description": "Retorna informações detalhadas sobre o status e métricas da aplicação, incluindo uptime, uso de memória, versão e timestamp.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Realiza o login do usuário",
+        "description": "Autentica o usuário com base nas credenciais fornecidas no corpo da requisição.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados para login",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "carlos@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "wadawcxa#¨_05#"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Cria um novo usuário",
+        "description": "Cria um novo usuário com base nos dados fornecidos no corpo da requisição.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados para registro",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "carlos"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "carlos@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "wadawcxa#¨_05#"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Lista todos os usuários",
+        "description": "Retorna uma lista com todos os usuários cadastrados no sistema.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Busca um usuário por ID",
+        "description": "Retorna os dados do usuário correspondente ao ID informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do usuário"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Atualiza um usuário",
+        "description": "Atualiza os dados do usuário com base no ID informado e nos dados do corpo da requisição.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do usuário a ser atualizado"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deleta um usuário",
+        "description": "Remove o usuário correspondente ao ID informado do sistema.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do usuário a ser deletado"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/questionnaires/": {
+      "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Lista todos os questionários",
+        "description": "Retorna uma lista com todos os questionários cadastrados no sistema.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Cria um novo questionário",
+        "description": "Cria um novo questionário com base nos dados fornecidos no corpo da requisição.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados para criação do questionário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Título do Questionário"
+                },
+                "icon": {
+                  "type": "string",
+                  "example": "Opcional - URL do ícone"
+                },
+                "userId": {
+                  "type": "string",
+                  "example": "UUID do usuário"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/questionnaires/{id}": {
+      "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Busca um questionário por ID",
+        "description": "Retorna os dados do questionário correspondente ao ID informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do questionário"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Atualiza um questionário existente",
+        "description": "Atualiza os dados de um questionário com base no ID informado e nos dados do corpo da requisição.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do questionário a ser atualizado"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados para atualização do questionário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Novo título (opcional)"
+                },
+                "icon": {
+                  "type": "string",
+                  "example": "Novo ícone (opcional)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Deleta um questionário",
+        "description": "Remove o questionário correspondente ao ID informado do sistema.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do questionário a ser removido"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/questions/by-questionnaire": {
+      "post": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Lista questões por questionário",
+        "description": "Retorna uma lista de questões associadas ao questionário informado.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "ID do questionário para buscar as questões",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "questionnaireId": {
+                  "type": "string",
+                  "example": "UUID do questionário"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/questions/": {
+      "post": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Cria uma nova questão",
+        "description": "Cria uma nova questão com base nos dados fornecidos no corpo da requisição.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados para criação da questão",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "questionnaireId": {
+                  "type": "string",
+                  "example": "UUID do questionário"
+                },
+                "parentQuestionId": {
+                  "type": "string",
+                  "example": "UUID da questão pai (opcional)"
+                },
+                "triggerValue": {
+                  "type": "string",
+                  "example": "Valor disparador (opcional)"
+                },
+                "orderIndex": {
+                  "type": "number",
+                  "example": 1
+                },
+                "text": {
+                  "type": "string",
+                  "example": "Texto da questão"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "Tipo da questão"
+                },
+                "options": {
+                  "type": "string",
+                  "example": "Array de opções (opcional)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/questions/{id}": {
+      "put": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Atualiza uma questão",
+        "description": "Atualiza os dados de uma questão com base no ID informado e nos dados do corpo da requisição.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID da questão a ser atualizada"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados para atualização da questão",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "questionnaireId": {
+                  "type": "string",
+                  "example": "UUID do questionário (opcional)"
+                },
+                "parentQuestionId": {
+                  "type": "string",
+                  "example": "UUID da questão pai (opcional)"
+                },
+                "triggerValue": {
+                  "type": "string",
+                  "example": "Valor disparador (opcional)"
+                },
+                "orderIndex": {
+                  "type": "number",
+                  "example": 1
+                },
+                "text": {
+                  "type": "string",
+                  "example": "Texto da questão (opcional)"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "Tipo da questão (opcional)"
+                },
+                "options": {
+                  "type": "string",
+                  "example": "Array de opções (opcional)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Deleta uma questão",
+        "description": "Remove uma questão do sistema com base no ID informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID da questão a ser deletada"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/questions/options/{id}": {
+      "put": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Atualiza uma opção de questão",
+        "description": "Atualiza os dados de uma opção associada a uma questão com base no ID informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID da opção a ser atualizada"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados para atualização da opção",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "example": "Rótulo da opção (opcional)"
+                },
+                "value": {
+                  "type": "string",
+                  "example": "Valor da opção (opcional)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Deleta uma opção de questão",
+        "description": "Remove uma opção associada a uma questão com base no ID informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID da opção a ser deletada"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/submissions/": {
+      "post": {
+        "tags": [
+          "Submissions"
+        ],
+        "summary": "Submete um formulário",
+        "description": "Processa os dados do formulário enviado, gerando um registro PDF correspondente.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/submissions/pdfs": {
+      "get": {
+        "tags": [
+          "Submissions"
+        ],
+        "summary": "Obtém PDF por ID",
+        "description": "Retorna o arquivo PDF associado ao ID fornecido.",
+        "produces": [
+          "application/pdf"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "ID do PDF a ser obtido",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/submissions/questionnaires/pdfs": {
+      "get": {
+        "tags": [
+          "Submissions"
+        ],
+        "summary": "Obtém PDFs por questionário",
+        "description": "Retorna todos os registros PDF associados ao questionário informado.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "ID do questionário para buscar os PDFs",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "questionnaireId": {
+                  "type": "string",
+                  "example": "UUID do questionário"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/submissions/pdfs/verify/{id}": {
+      "get": {
+        "tags": [
+          "Submissions"
+        ],
+        "summary": "Verifica assinatura de PDF",
+        "description": "Verifica se a assinatura do PDF associado ao ID informado é válida.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do PDF a ser verificado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "example": "Jhon Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "jhondoe@email.com"
+        },
+        "role": {
+          "type": "string",
+          "example": "COMMON"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-01-01T00:00:00Z"
+        }
+      }
+    },
+    "Questionnaire": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "uuid"
+        },
+        "title": {
+          "type": "string",
+          "example": "Questionário de Exemplo"
+        },
+        "icon": {
+          "type": "string",
+          "example": "http://example.com/icon.png"
+        },
+        "userId": {
+          "type": "string",
+          "example": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-01-01T00:00:00Z"
+        }
+      }
+    },
+    "Question": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "uuid"
+        },
+        "questionnaireId": {
+          "type": "string",
+          "example": "uuid"
+        },
+        "parentQuestionId": {
+          "type": "string",
+          "example": "uuid"
+        },
+        "triggerValue": {
+          "type": "string",
+          "example": "Valor disparador (opcional)"
+        },
+        "orderIndex": {
+          "type": "number",
+          "example": 1
+        },
+        "text": {
+          "type": "string",
+          "example": "Texto da pergunta"
+        },
+        "type": {
+          "type": "string",
+          "example": "text"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-01-01T00:00:00Z"
+        }
+      }
+    },
+    "Option": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "uuid"
+        },
+        "questionId": {
+          "type": "string",
+          "example": "uuid"
+        },
+        "label": {
+          "type": "string",
+          "example": "Opção A"
+        },
+        "value": {
+          "type": "string",
+          "example": "valorA"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-01-01T00:00:00Z"
+        }
+      }
+    },
+    "Submission": {
+      "type": "object",
+      "properties": {
+        "deviceInfo": {
+          "type": "object",
+          "properties": {
+            "deviceId": {
+              "type": "string",
+              "example": "opcional"
+            },
+            "ip": {
+              "type": "string",
+              "example": "127.0.0.1"
+            },
+            "userAgent": {
+              "type": "string",
+              "example": "Mozilla/5.0"
+            }
+          }
+        },
+        "networkInfo": {
+          "type": "object",
+          "properties": {
+            "ip": {
+              "type": "string",
+              "example": "127.0.0.1"
+            }
+          }
+        },
+        "origin": {
+          "type": "string",
+          "example": "http://example.com"
+        },
+        "formData": {
+          "type": "object",
+          "properties": {
+            "questionnaireId": {
+              "type": "string",
+              "example": "uuid"
+            },
+            "responses": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "question": {
+                    "type": "string",
+                    "example": "Texto da pergunta"
+                  },
+                  "answer": {
+                    "type": "string",
+                    "example": "Resposta da pergunta"
+                  }
+                }
+              }
+            },
+            "signature": {
+              "type": "string",
+              "example": "Assinatura da submissão"
+            }
+          }
+        },
+        "additionalData": {
+          "type": "object",
+          "properties": {
+            "patientName": {
+              "type": "string",
+              "example": "Nome do paciente"
+            },
+            "cpf": {
+              "type": "string",
+              "example": "000.000.000-00"
+            },
+            "birthDate": {
+              "type": "string",
+              "example": "2000-01-01"
+            },
+            "age": {
+              "type": "string",
+              "example": "25"
+            },
+            "logoUrl": {
+              "type": "string",
+              "example": "http://example.com/logo.png"
+            }
+          }
+        }
+      }
+    }
+  }
+}

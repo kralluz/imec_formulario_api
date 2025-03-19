@@ -1,0 +1,37 @@
+POST /auth/login
+POST /auth/logout
+POST /auth/register (se aplicável)
+GET /users
+GET /users/:id
+POST /users
+PUT /users/:id
+DELETE /users/:id
+GET /questionnaires
+GET /questionnaires/:id
+POST /questionnaires
+PUT /questionnaires/:id
+DELETE /questionnaires/:id
+GET /questionnaires/:questionnaireId/questions
+GET /questions/:id
+POST /questionnaires/:questionnaireId/questions
+PUT /questions/:id
+DELETE /questions/:id
+GET /questions/:questionId/options
+GET /options/:id
+POST /questions/:questionId/options
+PUT /options/:id
+DELETE /options/:id
+POST /submissions
+GET /pdfs/:id
+GET /questionnaires/:questionnaireId/pdfs
+GET /pdfs/verify/:id
+GET /questionnaires/:questionnaireId/analytics
+POST /questionnaires/:questionnaireId/analytics
+PUT /analytics/:id
+DELETE /analytics/:id
+GET /reports
+GET /questionnaires/search
+GET /audit-logs
+GET /audit-logs/:id
+POST /audit-logs (geralmente automático)
+GET /signature/validate
