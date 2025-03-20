@@ -8,8 +8,8 @@ import {
   dataSanitizationMiddleware,
   questionnaireCreateValidatorMiddleware,
   questionnaireUpdateValidatorMiddleware,
-  uuidValidationMiddleware,
 } from "../middlewares/questionnaires.middleware";
+import { uuidValidationMiddleware } from "../middlewares/globals.middleware";
 
 const requestLoggingMiddleware = (req: any, res: any, next: any) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);

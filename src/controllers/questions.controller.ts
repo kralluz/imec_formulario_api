@@ -49,7 +49,8 @@ export const QuestionsController = {
     } */
     try {
       const data = req.body;
-      const newQuestion = await QuestionsService.createQuestion(data);
+      const userId = res.locals.user.id;
+      const newQuestion = await QuestionsService.createQuestion(data, userId);
       res.status(201).json(newQuestion);
     } catch (error) {
       next(error);
@@ -81,7 +82,12 @@ export const QuestionsController = {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedQuestion = await QuestionsService.updateQuestion(id, data);
+      const userId = res.locals.user.id;
+      const updatedQuestion = await QuestionsService.updateQuestion(
+        id,
+        data,
+        userId
+      );
       res.json(updatedQuestion);
     } catch (error) {
       next(error);
@@ -99,7 +105,8 @@ export const QuestionsController = {
     // #swagger.parameters['id'] = { description: 'ID da questão a ser deletada' }
     try {
       const { id } = req.params;
-      await QuestionsService.deleteQuestion(id);
+      const userId = res.locals.user.id;
+      await QuestionsService.deleteQuestion(id, userId);
       res.json({ message: "Questão deletada com sucesso" });
     } catch (error) {
       next(error);
@@ -126,7 +133,8 @@ export const QuestionsController = {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedOption = await QuestionsService.updateOption(id, data);
+      const userId = res.locals.user.id;
+      const updatedOption = await QuestionsService.updateOption(id, data, userId);
       res.json(updatedOption);
     } catch (error) {
       next(error);
@@ -144,7 +152,8 @@ export const QuestionsController = {
     // #swagger.parameters['id'] = { description: 'ID da opção a ser deletada' }
     try {
       const { id } = req.params;
-      await QuestionsService.deleteOption(id);
+      const userId = res.locals.user.id;
+      await QuestionsService.deleteOption(id, userId);
       res.json({ message: "Opção deletada com sucesso" });
     } catch (error) {
       next(error);

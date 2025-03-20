@@ -4,12 +4,12 @@ import { SubmissionsController } from "../controllers/submissions.controller";
 import {
   dataSanitizationMiddleware,
   submissionValidatorMiddleware,
-  uuidValidationMiddleware,
 } from "../middlewares/submissions.middleware";
 import {
   adminAuthorizationMiddleware,
   authenticationMiddleware,
 } from "../middlewares/auth.middleware";
+import { uuidValidationMiddleware } from "../middlewares/globals.middleware";
 
 const SubmissionsRouter = Router();
 

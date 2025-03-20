@@ -10,7 +10,26 @@ export const QuestionnairesService = {
   getQuestionnaires: async (): Promise<
     Array<(typeof questionnaireOutputSchema)["_output"]>
   > => {
-    const questionnaires = await prisma.questionnaire.findMany();
+    const questionnaires = await prisma.questionnaire.findMany({
+      include: {
+        questions: {
+          orderBy: { orderIndex: "asc" },
+          include: {
+            options: {
+              orderBy: { createdAt: "asc" },
+            },
+            childQuestions: {
+              orderBy: { orderIndex: "asc" },
+              include: {
+                options: {
+                  orderBy: { createdAt: "asc" },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
     return questionnaires.map((q) => questionnaireOutputSchema.parse(q));
   },
 
@@ -19,15 +38,31 @@ export const QuestionnairesService = {
   ): Promise<(typeof questionnaireOutputSchema)["_output"] | null> => {
     const questionnaire = await prisma.questionnaire.findUnique({
       where: { id },
+      include: {
+        questions: {
+          orderBy: { orderIndex: "asc" },
+          include: {
+            options: {
+              orderBy: { createdAt: "asc" },
+            },
+            childQuestions: {
+              orderBy: { orderIndex: "asc" },
+              include: {
+                options: {
+                  orderBy: { createdAt: "asc" },
+                },
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!questionnaire) {
       throw new AppError("Questionário não encontrado", 404);
     }
 
-    return questionnaire
-      ? questionnaireOutputSchema.parse(questionnaire)
-      : null;
+    return questionnaireOutputSchema.parse(questionnaire);
   },
 
   createQuestionnaire: async (

@@ -7,7 +7,7 @@ const doc = {
       "Documentação automática gerada pelo Swagger para a API do Conecta IMEC",
     version: "1.9.36",
   },
-  host: "localhost:3004",
+  host: "localhost:30",
   basePath: "/",
   schemes: ["http"],
   securityDefinitions: {
@@ -39,6 +39,10 @@ const doc = {
     {
       name: "Submissions",
       description: "Endpoints relacionados aos envios (respostas)",
+    },
+    {
+      name: "Reports",
+      description: "Endpoints relacionados aos relatórios",
     },
     {
       name: "Health",

@@ -4,14 +4,13 @@ import { UsersController } from "../controllers/users.controller";
 import {
   auditLoggingMiddleware,
   dataSanitizationMiddleware,
-  userCreateValidatorMiddleware,
   userUpdateValidatorMiddleware,
-  uuidValidationMiddleware,
 } from "../middlewares/users.middleware";
 import {
   adminAuthorizationMiddleware,
   authenticationMiddleware,
 } from "../middlewares/auth.middleware";
+import { uuidValidationMiddleware } from "../middlewares/globals.middleware";
 
 const requestLoggingMiddleware = (req: any, res: any, next: any) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);

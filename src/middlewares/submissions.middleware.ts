@@ -29,21 +29,3 @@ export const dataSanitizationMiddleware = (
   }
   next();
 };
-
-import { z } from "zod";
-export const uuidValidationMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const paramsSchema = z.object({
-    id: z.string().uuid({ message: "ID inválido" }),
-  });
-  try {
-    paramsSchema.parse(req.params);
-    next();
-  } catch (error: any) {
-    res.status(400).json({ error: error.errors });
-    return;
-  }
-};

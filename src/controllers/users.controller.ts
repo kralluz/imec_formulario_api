@@ -22,7 +22,8 @@ export const UsersController = {
     // #swagger.parameters['id'] = { description: 'ID do usuário' }
     try {
       const { id } = req.params;
-      const user = await UsersService.getUserById(id);
+      const userId = res.locals.user.id;
+      const user = await UsersService.getUserById(id, userId);
       if (!user) {
         res.status(404).json({ error: "Usuário não encontrado" });
         return;
@@ -51,7 +52,8 @@ export const UsersController = {
     try {
       const { id } = req.params;
       const data = req.body;
-      const user = await UsersService.updateUser(id, data);
+      const userId = res.locals.user.id;
+      const user = await UsersService.updateUser(id, data, userId);
       if (!user) {
         res.status(404).json({ error: "Usuário não encontrado" });
         return;
@@ -70,7 +72,8 @@ export const UsersController = {
     // #swagger.parameters['id'] = { description: 'ID do usuário a ser deletado' }
     try {
       const { id } = req.params;
-      await UsersService.deleteUser(id);
+      const userId = res.locals.user.id;
+      await UsersService.deleteUser(id, userId);
       res.json({ message: "Usuário deletado com sucesso" });
       return;
     } catch (error) {

@@ -5,23 +5,6 @@ import {
   questionnaireUpdateSchema,
 } from "../schemas/questionnaires.schema";
 
-export const uuidValidationMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const paramsSchema = z.object({
-    id: z.string().uuid({ message: "ID inválido" }),
-  });
-  try {
-    paramsSchema.parse(req.params);
-    next();
-  } catch (error: any) {
-    res.status(400).json({ error: error.errors });
-    return;
-  }
-};
-
 export const questionnaireCreateValidatorMiddleware = (
   req: Request,
   res: Response,

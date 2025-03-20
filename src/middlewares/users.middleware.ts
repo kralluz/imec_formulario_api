@@ -1,25 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { z } from "zod";
 import { userCreateSchema, userUpdateSchema } from "../schemas/users.schema";
-
-const validateUUID = (uuid: string): boolean => {
-  const uuidRegex =
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  return uuidRegex.test(uuid);
-};
-
-export const uuidValidationMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
-  const { id } = req.params;
-  if (!validateUUID(id)) {
-    res.status(400).json({ error: "Invalid UUID" });
-  } else {
-    next();
-  }
-};
 
 export const userCreateValidatorMiddleware = (
   req: Request,

@@ -5,7 +5,7 @@
     "description": "Documentação automática gerada pelo Swagger para a API do Conecta IMEC",
     "version": "1.9.36"
   },
-  "host": "localhost:3004",
+  "host": "localhost:30",
   "basePath": "/",
   "tags": [
     {
@@ -27,6 +27,10 @@
     {
       "name": "Submissions",
       "description": "Endpoints relacionados aos envios (respostas)"
+    },
+    {
+      "name": "Reports",
+      "description": "Endpoints relacionados aos relatórios"
     },
     {
       "name": "Health",
@@ -922,6 +926,102 @@
           },
           "400": {
             "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/reports/logs": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "summary": "Retorna os logs de auditoria",
+        "description": "Retorna os logs de auditoria com base nos filtros fornecidos como parâmetros de query.",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Filtros para logs de auditoria",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tableName": {
+                  "type": "string",
+                  "example": "nome_da_tabela"
+                },
+                "action": {
+                  "type": "string",
+                  "example": "ação realizada"
+                },
+                "startDate": {
+                  "type": "string",
+                  "example": "2021-01-01T00:00:00.000Z"
+                },
+                "endDate": {
+                  "type": "string",
+                  "example": "2021-01-31T23:59:59.999Z"
+                },
+                "limit": {
+                  "type": "string",
+                  "example": "10"
+                },
+                "offset": {
+                  "type": "string",
+                  "example": "0"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/reports/analytics": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "summary": "Retorna os relatórios de analytics",
+        "description": "Retorna os relatórios de analytics com base nos filtros fornecidos como parâmetros de query.",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Filtros para os relatórios de analytics",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "questionnaireId": {
+                  "type": "string",
+                  "example": "uuid do questionário"
+                },
+                "startDate": {
+                  "type": "string",
+                  "example": "2021-01-01T00:00:00.000Z"
+                },
+                "endDate": {
+                  "type": "string",
+                  "example": "2021-01-31T23:59:59.999Z"
+                },
+                "limit": {
+                  "type": "string",
+                  "example": "10"
+                },
+                "offset": {
+                  "type": "string",
+                  "example": "0"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

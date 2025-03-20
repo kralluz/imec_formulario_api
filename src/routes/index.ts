@@ -5,6 +5,7 @@ import userRouter from "./users.routes";
 import questionnairesRouter from "./questionnaires.routes";
 import questionsRouter from "./questions.routes";
 import submissionsRouter from "./submissions.routes";
+import reportsRouter from "./reports.routes";
 
 const router = express.Router();
 
@@ -20,6 +21,7 @@ router.use("/users", userRouter);
 router.use("/questionnaires", questionnairesRouter);
 router.use("/questions", questionsRouter);
 router.use("/submissions", submissionsRouter);
+router.use("/reports", reportsRouter);
 
 router.get("/health", async (req, res) => {
   // #swagger.tags = ['Health']

@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { Request } from "express";
 import prisma from "../prisma";
 import {
   RegisterInput,

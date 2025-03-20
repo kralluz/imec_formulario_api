@@ -1,5 +1,7 @@
 // src/app.ts
-import express, { Request, Response } from "express";
+import "newrelic";
+
+import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 
